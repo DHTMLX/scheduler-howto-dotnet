@@ -9,4 +9,4 @@ Implementing backend for dhtmlxScheduler using ASP.NET WebAPI 2.
 
 ### Tutorial
 
-A complete tutorial here https://docs.dhtmlx.com/scheduler/howtostart_guides.html *coming soon*
+A complete tutorial here https://docs.dhtmlx.com/scheduler/howtostart_dotnet.html
