@@ -5,7 +5,7 @@ Implementing backend for dhtmlxScheduler using ASP.NET WebAPI 2.
 
 ### Requirements
 
-- MS VisualStudio 2013+
+- MS VisualStudio 2022
 
 ### Tutorial
 

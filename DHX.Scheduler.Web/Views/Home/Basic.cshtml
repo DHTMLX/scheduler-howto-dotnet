@@ -13,7 +13,8 @@
           rel="stylesheet" type="text/css" />
     <script src="https://cdn.dhtmlx.com/scheduler/edge/dhtmlxscheduler.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
+        document.addEventListener("DOMContentLoaded", function (event) {
+            scheduler.config.details_on_dblclick = true;
             // initializing scheduler
             scheduler.init("scheduler_here", new Date(2019, 0, 15));
 

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Text.Encodings.Web;
 
 namespace DHX.Scheduler.Web.Models
@@ -30,8 +27,12 @@ namespace DHX.Scheduler.Web.Models
             {
                 Id = schedulerEvent.id,
                 Text = schedulerEvent.text,
-                StartDate = DateTime.Parse(schedulerEvent.start_date, System.Globalization.CultureInfo.InvariantCulture),
-                EndDate = DateTime.Parse(schedulerEvent.end_date, System.Globalization.CultureInfo.InvariantCulture)
+                StartDate = DateTime.Parse(
+                    schedulerEvent.start_date,
+                    System.Globalization.CultureInfo.InvariantCulture),
+                EndDate = DateTime.Parse(
+                    schedulerEvent.end_date,
+                    System.Globalization.CultureInfo.InvariantCulture)
             };
         }
 

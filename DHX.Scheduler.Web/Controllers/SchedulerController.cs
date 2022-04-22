@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
+
 using DHX.Scheduler.Web.App_Start;
 using DHX.Scheduler.Web.Models;
 
@@ -18,9 +18,9 @@ namespace DHX.Scheduler.Web.Controllers
         public IEnumerable<WebAPIEvent> Get(DateTime from, DateTime to)
         {
             return db.SchedulerEvents
-                .Where(e => e.StartDate < to && e.EndDate >= from)
-                .ToList()
-                .Select(e => (WebAPIEvent)e);
+               .Where(e => e.StartDate < to && e.EndDate >= from)
+               .ToList()
+               .Select(e => (WebAPIEvent)e);
         }
 
         // GET: api/scheduler/5

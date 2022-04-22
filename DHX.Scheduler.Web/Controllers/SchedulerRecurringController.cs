@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using DHX.Scheduler.Web.App_Start;
 using DHX.Scheduler.Web.Models;

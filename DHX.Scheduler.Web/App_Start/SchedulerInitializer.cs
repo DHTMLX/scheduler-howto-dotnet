@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 using DHX.Scheduler.Web.Models;
 
@@ -40,7 +38,6 @@ namespace DHX.Scheduler.Web.App_Start
             events.ForEach(s => context.SchedulerEvents.Add(s));
             context.SaveChanges();
 
-
             List<SchedulerRecurringEvent> recurringEvents = new List<SchedulerRecurringEvent>()
             {
                 new SchedulerRecurringEvent()
@@ -68,7 +65,6 @@ namespace DHX.Scheduler.Web.App_Start
 
             recurringEvents.ForEach(s => context.SchedulerRecurringEvents.Add(s));
             context.SaveChanges();
-
         }
 
     }
