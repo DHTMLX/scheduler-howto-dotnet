@@ -22,7 +22,7 @@
             // initiating data loading
             scheduler.load("/api/scheduler");
             // initializing dataProcessor
-            var dp = new dataProcessor("/api/scheduler");
+            var dp = scheduler.createDataProcessor("/api/scheduler");
             // and attaching it to scheduler
             dp.init(scheduler);
             // setting the REST mode for dataProcessor
