@@ -23,11 +23,11 @@
             // initiating data loading
             scheduler.load("/api/schedulerrecurring");
             // initializing dataProcessor
-            var dp = scheduler.createDataProcessor("/api/schedulerrecurring");
-            // and attaching it to scheduler
-            dp.init(scheduler);
-            // setting the REST mode for dataProcessor
-            dp.setTransactionMode("REST");
+            
+            const dp = scheduler.createDataProcessor({
+                url: "/api/schedulerrecurring",
+                mode: "REST"
+            });
         });
     </script>
 </head>

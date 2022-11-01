@@ -22,11 +22,10 @@
             // initiating data loading
             scheduler.load("/api/scheduler");
             // initializing dataProcessor
-            var dp = scheduler.createDataProcessor("/api/scheduler");
-            // and attaching it to scheduler
-            dp.init(scheduler);
-            // setting the REST mode for dataProcessor
-            dp.setTransactionMode("REST");
+            const dp = scheduler.createDataProcessor({
+                url: "/api/scheduler",
+                mode: "REST"
+            });
         });
     </script>
 </head>
