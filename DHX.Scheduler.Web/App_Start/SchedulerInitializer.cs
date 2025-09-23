@@ -16,22 +16,22 @@ namespace DHX.Scheduler.Web.App_Start
                 {
                     Id = 1,
                     Text = "Event 1",
-                    StartDate = new DateTime(2019, 1, 15, 2, 0, 0),
-                    EndDate = new DateTime(2019, 1, 15, 4, 0, 0)
+                    StartDate = new DateTime(2026, 1, 15, 2, 0, 0),
+                    EndDate = new DateTime(2026, 1, 15, 4, 0, 0)
                 },
                 new SchedulerEvent()
                 {
                     Id = 2,
                     Text = "Event 2",
-                    StartDate = new DateTime(2019, 1, 17, 3, 0, 0),
-                    EndDate = new DateTime(2019, 1, 17, 6, 0, 0)
+                    StartDate = new DateTime(2026, 1, 17, 3, 0, 0),
+                    EndDate = new DateTime(2026, 1, 17, 6, 0, 0)
                 },
                 new SchedulerEvent()
                 {
                     Id = 3,
                     Text = "Multiday event",
-                    StartDate = new DateTime(2019, 1, 15, 0, 0, 0),
-                    EndDate = new DateTime(2019, 1, 20, 0, 0, 0)
+                    StartDate = new DateTime(2026, 1, 15, 0, 0, 0),
+                    EndDate = new DateTime(2026, 1, 20, 0, 0, 0)
                 }
             };
 
@@ -44,22 +44,22 @@ namespace DHX.Scheduler.Web.App_Start
                 {
                     Id = 1,
                     Text = "Event 1",
-                    StartDate = new DateTime(2019, 1, 15, 2, 0, 0),
-                    EndDate = new DateTime(2019, 1, 15, 4, 0, 0)
+                    StartDate = new DateTime(2026, 1, 15, 2, 0, 0),
+                    EndDate = new DateTime(2026, 1, 15, 4, 0, 0)
                 },
                 new SchedulerRecurringEvent()
                 {
                     Id = 2,
                     Text = "Event 2",
-                    StartDate = new DateTime(2019, 1, 17, 3, 0, 0),
-                    EndDate = new DateTime(2019, 1, 17, 6, 0, 0)
+                    StartDate = new DateTime(2026, 1, 17, 3, 0, 0),
+                    EndDate = new DateTime(2026, 1, 17, 6, 0, 0)
                 },
                 new SchedulerRecurringEvent()
                 {
                     Id = 3,
                     Text = "Multiday event",
-                    StartDate = new DateTime(2019, 1, 15, 0, 0, 0),
-                    EndDate = new DateTime(2019, 1, 20, 0, 0, 0)
+                    StartDate = new DateTime(2026, 1, 15, 0, 0, 0),
+                    EndDate = new DateTime(2026, 1, 20, 0, 0, 0)
                 }
             };
 
