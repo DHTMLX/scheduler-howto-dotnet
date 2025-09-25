@@ -33,17 +33,26 @@ namespace DHX.Scheduler.Web.Controllers
         public IHttpActionResult EditSchedulerEvent(int id, WebAPIRecurringEvent webAPIEvent)
         {
             var updatedSchedulerEvent = (SchedulerRecurringEvent)webAPIEvent;
-            updatedSchedulerEvent.Id = id;
-            db.Entry(updatedSchedulerEvent).State = EntityState.Modified;
-
-            if (!string.IsNullOrEmpty(updatedSchedulerEvent.RecType) && updatedSchedulerEvent.RecType != "none")
+            var dbEvent = db.SchedulerRecurringEvents.Find(id);
+            if (dbEvent == null)
             {
-                //all modified occurrences must be deleted when we update a recurring series
-                //https://docs.dhtmlx.com/scheduler/server_integration.html#savingrecurringevents
-
-                db.SchedulerRecurringEvents.RemoveRange(
-                    db.SchedulerRecurringEvents.Where(e => e.EventPID == id)
-                );
+                return NotFound();
+            }
+            dbEvent.Text = updatedSchedulerEvent.Text;
+            dbEvent.StartDate = updatedSchedulerEvent.StartDate;
+            dbEvent.EndDate = updatedSchedulerEvent.EndDate;
+            dbEvent.Duration = updatedSchedulerEvent.Duration;
+            dbEvent.RRule = updatedSchedulerEvent.RRule;
+            dbEvent.RecurringEventId = updatedSchedulerEvent.RecurringEventId;
+            dbEvent.OriginalStart = updatedSchedulerEvent.OriginalStart;
+            if (!string.IsNullOrEmpty(dbEvent.RRule) && dbEvent.RecurringEventId == null)
+            {
+                // all modified occurrences must be deleted when we update recurring series
+                // https://docs.dhtmlx.com/scheduler/server_integration.html#savingrecurringevents
+                var eventsToDelete = db.SchedulerRecurringEvents
+                    .Where(e => !string.IsNullOrEmpty(e.RecurringEventId) && e.RecurringEventId == dbEvent.Id.ToString())
+                    .ToList();
+                db.SchedulerRecurringEvents.RemoveRange(eventsToDelete);
             }
 
             db.SaveChanges();
@@ -59,20 +68,19 @@ namespace DHX.Scheduler.Web.Controllers
         public IHttpActionResult CreateSchedulerEvent(WebAPIRecurringEvent webAPIEvent)
         {
             var newSchedulerEvent = (SchedulerRecurringEvent)webAPIEvent;
+            var action = "inserted";
+            if (webAPIEvent.deleted == true)
+            {
+                // delete a single occurrence from  recurring series
+                action = "deleted";
+            }
             db.SchedulerRecurringEvents.Add(newSchedulerEvent);
             db.SaveChanges();
-
-            // delete a single occurrence from a recurring series
-            var resultAction = "inserted";
-            if (newSchedulerEvent.RecType == "none")
-            {
-                resultAction = "deleted";
-            }
 
             return Ok(new
             {
                 tid = newSchedulerEvent.Id,
-                action = resultAction
+                action
             });
         }
 
@@ -83,29 +91,22 @@ namespace DHX.Scheduler.Web.Controllers
             var schedulerEvent = db.SchedulerRecurringEvents.Find(id);
             if (schedulerEvent != null)
             {
-                //some logic specific to recurring events support
-                //https://docs.dhtmlx.com/scheduler/server_integration.html#savingrecurringevents
-
-                if (schedulerEvent.EventPID != default(int))
+                if (schedulerEvent.RecurringEventId != null)
                 {
-                    // deleting a modified occurrence from a recurring series
-                    // If an event with the event_pid value was deleted, it should be updated 
-                    // with rec_type==none instead of deleting.
-
-                    schedulerEvent.RecType = "none";
+                    // deleting modified occurrence from recurring series
+                    // If an event with the recurring_event_id value was deleted - it needs updating with .deleted = true instead of deleting.
+                    schedulerEvent.Deleted = true;
                 }
                 else
                 {
-                    //if a recurring series deleted, delete all modified occurrences of the series
-                    if (!string.IsNullOrEmpty(schedulerEvent.RecType) && schedulerEvent.RecType != "none")
+                    if (schedulerEvent.RRule != null)
                     {
-                        //all modified occurrences must be deleted when we update recurring series
-                        //https://docs.dhtmlx.com/scheduler/server_integration.html#savingrecurringevents
-                        db.SchedulerRecurringEvents.RemoveRange(
-                            db.SchedulerRecurringEvents.Where(ev => ev.EventPID == id)
-                        );
+                        // if a recurring series was deleted - delete all modified occurrences of the series
+                        var eventsToDelete = db.SchedulerRecurringEvents
+                            .Where(e => !string.IsNullOrEmpty(e.RecurringEventId) && e.RecurringEventId == schedulerEvent.Id.ToString())
+                            .ToList();
+                        db.SchedulerRecurringEvents.RemoveRange(eventsToDelete);
                     }
-
                     db.SchedulerRecurringEvents.Remove(schedulerEvent);
                 }
                 db.SaveChanges();

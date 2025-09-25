@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DHX.Scheduler.Web.Models;
+using System;
 using System.Text.Encodings.Web;
 
 namespace DHX.Scheduler.Web.Models
@@ -9,23 +10,26 @@ namespace DHX.Scheduler.Web.Models
         public string text { get; set; }
         public string start_date { get; set; }
         public string end_date { get; set; }
+        public int? duration { get; set; }
+        public string rrule { get; set; }
+        public string recurring_event_id { get; set; }
+        public string original_start { get; set; }
+        public bool? deleted { get; set; }
 
-        public int? event_pid { get; set; }
-        public string rec_type { get; set; }
-        public long? event_length { get; set; }
 
         public static explicit operator WebAPIRecurringEvent(SchedulerRecurringEvent schedulerEvent)
         {
             return new WebAPIRecurringEvent
             {
                 id = schedulerEvent.Id,
-                text = HtmlEncoder.Default.Encode(schedulerEvent.Text),
+                text = schedulerEvent.Text,
                 start_date = schedulerEvent.StartDate.ToString("yyyy-MM-dd HH:mm"),
                 end_date = schedulerEvent.EndDate.ToString("yyyy-MM-dd HH:mm"),
-
-                event_pid = schedulerEvent.EventPID,
-                rec_type = schedulerEvent.RecType,
-                event_length = schedulerEvent.EventLength
+                duration = schedulerEvent.Duration,
+                rrule = schedulerEvent.RRule,
+                recurring_event_id = schedulerEvent.RecurringEventId,
+                original_start = schedulerEvent.OriginalStart,
+                deleted = schedulerEvent.Deleted,
             };
         }
 
@@ -35,12 +39,18 @@ namespace DHX.Scheduler.Web.Models
             {
                 Id = schedulerEvent.id,
                 Text = schedulerEvent.text,
-                StartDate = DateTime.Parse(schedulerEvent.start_date, System.Globalization.CultureInfo.InvariantCulture),
-                EndDate = DateTime.Parse(schedulerEvent.end_date, System.Globalization.CultureInfo.InvariantCulture),
+                StartDate = DateTime.Parse(
+                    schedulerEvent.start_date,
+                    System.Globalization.CultureInfo.InvariantCulture),
+                EndDate = DateTime.Parse(
+                    schedulerEvent.end_date,
+                    System.Globalization.CultureInfo.InvariantCulture),
+                Duration = schedulerEvent.duration,
+                RRule = schedulerEvent.rrule,
+                RecurringEventId = schedulerEvent.recurring_event_id,
+                OriginalStart = schedulerEvent.original_start,
+                Deleted = schedulerEvent.deleted
 
-                EventPID = schedulerEvent.event_pid != null ? schedulerEvent.event_pid.Value : 0,
-                EventLength = schedulerEvent.event_length != null ? schedulerEvent.event_length.Value : 0,
-                RecType = schedulerEvent.rec_type
             };
         }
 
