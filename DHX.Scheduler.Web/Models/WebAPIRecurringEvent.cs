@@ -26,7 +26,7 @@ namespace DHX.Scheduler.Web.Models
                 start_date = schedulerEvent.StartDate.ToString("yyyy-MM-dd HH:mm"),
                 end_date = schedulerEvent.EndDate.ToString("yyyy-MM-dd HH:mm"),
                 duration = schedulerEvent.Duration,
-                rrule = schedulerEvent.Rrule,
+                rrule = schedulerEvent.RRule,
                 recurring_event_id = schedulerEvent.RecurringEventId,
                 original_start = schedulerEvent.OriginalStart,
                 deleted = schedulerEvent.Deleted,
@@ -46,7 +46,7 @@ namespace DHX.Scheduler.Web.Models
                     schedulerEvent.end_date,
                     System.Globalization.CultureInfo.InvariantCulture),
                 Duration = schedulerEvent.duration,
-                Rrule = schedulerEvent.rrule,
+                RRule = schedulerEvent.rrule,
                 RecurringEventId = schedulerEvent.recurring_event_id,
                 OriginalStart = schedulerEvent.original_start,
                 Deleted = schedulerEvent.deleted

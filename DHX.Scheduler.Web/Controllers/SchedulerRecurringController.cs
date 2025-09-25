@@ -42,10 +42,10 @@ namespace DHX.Scheduler.Web.Controllers
             dbEvent.StartDate = updatedSchedulerEvent.StartDate;
             dbEvent.EndDate = updatedSchedulerEvent.EndDate;
             dbEvent.Duration = updatedSchedulerEvent.Duration;
-            dbEvent.Rrule = updatedSchedulerEvent.Rrule;
+            dbEvent.RRule = updatedSchedulerEvent.RRule;
             dbEvent.RecurringEventId = updatedSchedulerEvent.RecurringEventId;
             dbEvent.OriginalStart = updatedSchedulerEvent.OriginalStart;
-            if (!string.IsNullOrEmpty(dbEvent.Rrule) && dbEvent.RecurringEventId == null)
+            if (!string.IsNullOrEmpty(dbEvent.RRule) && dbEvent.RecurringEventId == null)
             {
                 // all modified occurrences must be deleted when we update recurring series
                 // https://docs.dhtmlx.com/scheduler/server_integration.html#savingrecurringevents
@@ -99,7 +99,7 @@ namespace DHX.Scheduler.Web.Controllers
                 }
                 else
                 {
-                    if (schedulerEvent.Rrule != null)
+                    if (schedulerEvent.RRule != null)
                     {
                         // if a recurring series was deleted - delete all modified occurrences of the series
                         var eventsToDelete = db.SchedulerRecurringEvents
